@@ -1,0 +1,12 @@
+<div
+  class={[
+    "rounded-md px-2 py-1 text-xs font-medium uppercase inline-block border",
+    @status == :resolved && "text-lime-600 border-lime-600",
+    @status == :pending && "text-amber-600 border-amber-600",
+    @status == :canceled && "text-grey-600 border-grey-600",
+    @class
+  ]}
+  @rest
+>
+  {@status}
+</div>
