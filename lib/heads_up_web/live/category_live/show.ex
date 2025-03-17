@@ -7,7 +7,7 @@ defmodule HeadsUpWeb.CategoryLive.Show do
   def render(assigns) do
     ~H"""
     <.header>
-      Category {@category.id}
+      {@category.name}
       <:subtitle>This is a category record from your database.</:subtitle>
       <:actions>
         <.button phx-click={JS.dispatch("click", to: {:inner, "a"})}>
@@ -23,6 +23,17 @@ defmodule HeadsUpWeb.CategoryLive.Show do
       <:item title="Slug">{@category.slug}</:item>
     </.list>
 
+    <section class="mt-12">
+      <h4>Incidents</h4>
+      <ul class="incidents">
+        <li :for={incident <- @category.incident}>
+          <.link navigate={~p"/incidents/#{incident}"}>
+            <img src={incident.image_path} /> {incident.name}
+          </.link>
+        </li>
+      </ul>
+    </section>
+
     <.back navigate={~p"/categories"}>Back to categories</.back>
     """
   end
@@ -32,6 +43,6 @@ defmodule HeadsUpWeb.CategoryLive.Show do
     {:ok,
      socket
      |> assign(:page_title, "Show Category")
-     |> assign(:category, Categories.get_category!(id))}
+     |> assign(:category, Categories.get_category_with_incidents!(id))}
   end
 end

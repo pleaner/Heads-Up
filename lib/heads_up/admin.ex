@@ -1,5 +1,6 @@
 defmodule HeadsUp.Admin do
   alias HeadsUp.Incidents.Incident
+  alias HeadsUp.Categories.Category
   alias HeadsUp.Repo
   import Ecto.Query
 
@@ -29,6 +30,13 @@ defmodule HeadsUp.Admin do
     id
     |> get_incident!()
     |> Repo.delete()
+  end
+
+  def get_category_options do
+    Category
+    |> select([c], {c.name, c.id})
+    |> order_by(:name)
+    |> Repo.all()
   end
 
   def change_incident(%Incident{} = incident, attrs \\ %{}) do
