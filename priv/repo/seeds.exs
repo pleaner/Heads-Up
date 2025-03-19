@@ -13,6 +13,7 @@
 alias HeadsUp.Repo
 alias HeadsUp.Incidents.Incident
 alias HeadsUp.Categories.Category
+alias HeadsUp.Accounts.User
 
 animals =
   %Category{name: "Animals & Wildlife", slug: "animals-and-wildlife"}
@@ -173,3 +174,12 @@ nature =
   category: vehicles
 }
 |> Repo.insert!()
+
+alex =
+  %User{}
+  |> User.registration_changeset(%{
+    email: "sean@here.com",
+    username: "sean",
+    password: "supersecret1"
+  })
+  |> Repo.insert!()
